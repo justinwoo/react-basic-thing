@@ -1,0 +1,10 @@
+{
+  "name": "some-ps-thing",
+  "set": "gulerod",
+  "source": "https://github.com/justinwoo/package-sets.git",
+  "depends": [
+    "eff",
+    "react-basic",
+    "prelude"
+  ]
+}
