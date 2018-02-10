@@ -8,7 +8,7 @@ var Main = require('./output/Main');
 
 function main() {
   const myComponent = (
-    <Main.example label='Increment' />
+    <Main.example />
   );
 
   ReactDOM.render(myComponent, document.getElementById('app'));

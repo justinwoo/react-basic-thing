@@ -3,6 +3,8 @@
   "set": "gulerod",
   "source": "https://github.com/justinwoo/package-sets.git",
   "depends": [
+    "console",
+    "dom-classy",
     "eff",
     "react-basic",
     "prelude"
