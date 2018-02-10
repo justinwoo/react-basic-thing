@@ -2,6 +2,7 @@ module Main where
 
 import Prelude
 
+import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (error, log)
 import Control.Monad.Eff.Uncurried (mkEffFn1)
 import Control.Monad.Eff.Unsafe (unsafeCoerceEff)
@@ -16,6 +17,11 @@ import Data.Either (Either(..))
 import Data.Foreign (toForeign)
 import Data.Maybe (Maybe(..), fromMaybe)
 import React.Basic as R
+
+coerceEffToReactFX :: forall e a
+   . Eff e a
+  -> Eff (react :: R.ReactFX) a
+coerceEffToReactFX = unsafeCoerceEff
 
 type ExampleProps =
   {
@@ -33,11 +39,11 @@ example = R.react
   where
     initialState _ = { fileBlob: Nothing } :: ExampleState
 
-    log' = unsafeCoerceEff <<< log
-    error' = unsafeCoerceEff <<< error
-    files' = unsafeCoerceEff <<< HTMLInputElement.files
+    log' = coerceEffToReactFX <<< log
+    error' = coerceEffToReactFX <<< error
+    files' = coerceEffToReactFX <<< HTMLInputElement.files
 
-    createObjectURL' f = unsafeCoerceEff $
+    createObjectURL' f = coerceEffToReactFX $
       createObjectURL f =<< Window.url =<< Document.window
 
     onFileChange setState {currentTarget} = do
